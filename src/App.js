@@ -21,7 +21,7 @@ function App() {
   );
 
   const onSelectTodo = useCallback(
-    (todo) => setSelectedTodo(todo),
+    (todo) => setSelectedTodo({ ...todo, completed: todoType !== 'todo' }),
     [selectedTodo]
   );
 
