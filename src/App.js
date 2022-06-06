@@ -5,6 +5,7 @@ import { tabs } from './config';
 import './App.css';
 import TodoCard from './components/TodoCard';
 import TodoTabs from './components/TodoTabs';
+import Todo from './components/Todo';
 
 function App() {
   const [todos, setTodos] = useState([]);
@@ -42,7 +43,7 @@ function App() {
 
       <TodoTabs selectedTab={todoType} onChangeTab={onChangeTab} tabs={tabs} />
 
-      {selectedTodo ? selectedTodo.id : null}
+      {selectedTodo ? <Todo todo={selectedTodo} /> : null}
 
       {!selectedTodo
         ? todos.map((todo) => (
