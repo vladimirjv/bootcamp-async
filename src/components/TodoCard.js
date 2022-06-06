@@ -31,4 +31,4 @@ TodoCard.propTypes = {
   body: PropTypes.string,
 };
 
-export default TodoCard;
+export default React.memo(TodoCard);
