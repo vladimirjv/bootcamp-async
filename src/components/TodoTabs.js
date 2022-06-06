@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 const classesActive =
   'inline-block p-4 text-blue-600 bg-gray-100 rounded-t-lg active dark:bg-gray-800 dark:text-blue-500';
@@ -9,9 +9,6 @@ function TodoTabs(props) {
   const onClickTab = (tab) => {
     props.onChangeTab(tab);
   };
-  /*useEffect(() => {
-    console.log('RENDER TODO TAB');
-  }, []);*/
 
   return (
     <ul className="cursor-pointer flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">

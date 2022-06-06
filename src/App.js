@@ -11,7 +11,18 @@ function App() {
   const [todoType, setTodoType] = useState('todo');
   const [selectedTodo, setSelectedTodo] = useState(null);
 
-  const onChangeTab = useCallback((tab) => setTodoType(tab.key), [todoType]);
+  const onChangeTab = useCallback(
+    (tab) => {
+      setSelectedTodo(null);
+      setTodoType(tab.key);
+    },
+    [todoType]
+  );
+
+  const onSelectTodo = useCallback(
+    (todo) => setSelectedTodo(todo),
+    [selectedTodo]
+  );
 
   const getTodosCallback = async (url) => {
     const todoList = await getTodos(url, todoType === 'todo');
@@ -20,14 +31,8 @@ function App() {
 
   useEffect(() => {
     const URL = getURLTodos(todoType === 'todo');
-    setSelectedTodo();
     getTodosCallback(URL);
   }, [todoType]);
-
-  // Component mounted, Error re-rendering
-  useEffect(() => {
-    console.log('RENDER APP');
-  }, []);
 
   return (
     <div className="App p-2">
@@ -37,9 +42,19 @@ function App() {
 
       <TodoTabs selectedTab={todoType} onChangeTab={onChangeTab} tabs={tabs} />
 
-      {todos.map((todo) => (
-        <TodoCard key={todo.id} title={todo.title} body={todo.body}></TodoCard>
-      ))}
+      {selectedTodo ? selectedTodo.id : null}
+
+      {!selectedTodo
+        ? todos.map((todo) => (
+            <TodoCard
+              key={todo.id}
+              todo={todo}
+              title={todo.title}
+              body={todo.body}
+              onEditTodo={onSelectTodo}
+            ></TodoCard>
+          ))
+        : null}
     </div>
   );
 }
