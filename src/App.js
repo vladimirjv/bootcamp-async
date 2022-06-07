@@ -25,14 +25,13 @@ function App() {
     [selectedTodo]
   );
 
-  const getTodosCallback = async (url) => {
-    const todoList = await getTodos(url, todoType === 'todo');
-    setTodos(todoList);
-  };
-
   useEffect(() => {
     const URL = getURLTodos(todoType === 'todo');
-    getTodosCallback(URL);
+    async function getTodosCallback() {
+      const todoList = await getTodos(URL, todoType === 'todo');
+      setTodos(todoList);
+    }
+    getTodosCallback();
   }, [todoType]);
 
   return (
@@ -51,7 +50,6 @@ function App() {
               key={todo.id}
               todo={todo}
               title={todo.title}
-              body={todo.body}
               onEditTodo={onSelectTodo}
             ></TodoCard>
           ))
