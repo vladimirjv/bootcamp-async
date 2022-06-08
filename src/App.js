@@ -63,8 +63,9 @@ function App() {
   };
 
   const onCreateTodo = async (todo) => {
-    const response = await updateTodo(todo).then((response) => response.json());
-    console.log(response);
+    const response = await createTodo(todo);
+    const body = await response.json();
+    console.log(body);
   };
 
   useEffect(() => {
