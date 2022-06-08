@@ -7,7 +7,11 @@ const buttonStyles = {
   aleternative:
     'w-full  py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700',
   greenDisabled:
-    'w-full text-white bg-green-800 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-700',
+    'cursor-not-allowed w-full text-white bg-green-800 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-700',
+  redDisabled:
+    'cursor-not-allowed w-full text-white bg-red-800 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-700',
+  aleternativeDisabled:
+    'cursor-not-allowed w-full  py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600',
 };
 
 function Todo(props) {
@@ -51,14 +55,21 @@ function Todo(props) {
       </label>
 
       {/* eslint-disable */}
-      <button type="button" className={buttonStyles.green}>
+      <button
+        type="button"
+        className={
+          props.loading ? buttonStyles.greenDisabled : buttonStyles.green
+        }
+        disabled={props.loading}
+      >
         {/* eslint-enable */}
-        Edit
+        {props.loading ? <Loading /> : 'Edit'}
       </button>
       <button
         type="button"
-        className={buttonStyles.red}
+        className={props.loading ? buttonStyles.redDisabled : buttonStyles.red}
         onClick={props.onDelete.bind(this, props.todo)}
+        disabled={props.loading}
       >
         {/* eslint-enable */}
         {props.loading ? <Loading /> : 'Delete'}
@@ -66,8 +77,13 @@ function Todo(props) {
       {/* eslint-disable */}
       <button
         type="button"
-        className={buttonStyles.aleternative}
+        className={
+          props.loading
+            ? buttonStyles.aleternativeDisabled
+            : buttonStyles.aleternative
+        }
         onClick={props.onCancel.bind(this)}
+        disabled={props.loading}
       >
         {/* eslint-enable */}
         Cancel

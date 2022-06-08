@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 function TodoCard(props) {
   return (
-    <div className="cursor-pointer my-2 p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+    <div className="cursor-pointer my-2 p-6 w-96 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
       {/* eslint-disable */}
       <a href="#">
         {/* eslint-enable */}

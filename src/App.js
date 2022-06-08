@@ -33,9 +33,11 @@ function App() {
     const { ok, status } = await deleteTodo(todo.id);
     if (ok && status === 200) {
       setAlert('Deleted');
-      setTimeout(setAlert.bind(this, null), 3000);
-      setSelectedTodo(null);
-      setLoading(false);
+      setTimeout(() => {
+        setAlert(null);
+        setSelectedTodo(null);
+        setLoading(false);
+      }, 3000);
     }
   };
 
