@@ -30,9 +30,8 @@ function App() {
   const onDeleteTodo = async (todo) => {
     const { ok, status } = await deleteTodo(todo.id);
     if (ok && status === 200) {
-      console.log(ok, status);
       setAlert('Deleted');
-      setTimeout(setAlert.bind(this, null), 1000);
+      setTimeout(setAlert.bind(this, null), 3000);
     }
   };
 
