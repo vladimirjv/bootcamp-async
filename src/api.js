@@ -9,10 +9,12 @@ export const getTodos = async (URL, todoCompleted) => {
 };
 
 export const deleteTodo = async (todoId) => {
-  const response = await fetch({
-    method: 'delete',
-    url: `https://jsonplaceholder.typicode.com/todos/${todoId}`,
-  });
+  const response = await fetch(
+    `https://jsonplaceholder.typicode.com/todos/${todoId}`,
+    {
+      method: 'delete',
+    }
+  );
   return response;
 };
 
