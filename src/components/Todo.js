@@ -15,8 +15,10 @@ const buttonStyles = {
 };
 
 function Todo(props) {
-  const [title, setTitle] = useState(props.todo.title);
-  const [completed, setCompleted] = useState(props.todo.completed);
+  const [title, setTitle] = useState(props.todo ? props.todo.title : '');
+  const [completed, setCompleted] = useState(
+    props.todo ? props.todo.completed : ''
+  );
 
   return (
     <div className="w-full cursor-pointer my-2 p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
@@ -54,7 +56,6 @@ function Todo(props) {
         </span>
       </label>
 
-      {/* eslint-disable */}
       <button
         type="button"
         className={
@@ -63,7 +64,6 @@ function Todo(props) {
         disabled={props.loading}
         onClick={props.onUpdate.bind(this, { ...props.todo, title, completed })}
       >
-        {/* eslint-enable */}
         {props.loading ? <Loading /> : 'Edit'}
       </button>
       <button
@@ -72,10 +72,8 @@ function Todo(props) {
         onClick={props.onDelete.bind(this, props.todo)}
         disabled={props.loading}
       >
-        {/* eslint-enable */}
         {props.loading ? <Loading /> : 'Delete'}
       </button>
-      {/* eslint-disable */}
       <button
         type="button"
         className={
@@ -86,7 +84,6 @@ function Todo(props) {
         onClick={props.onCancel.bind(this)}
         disabled={props.loading}
       >
-        {/* eslint-enable */}
         Cancel
       </button>
     </div>

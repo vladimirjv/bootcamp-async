@@ -97,7 +97,7 @@ function App() {
         </button>
       ) : null}
 
-      {selectedTodo ? (
+      {selectedTodo || newTodo ? (
         <Todo
           todo={selectedTodo}
           onDelete={onDeleteTodo}
