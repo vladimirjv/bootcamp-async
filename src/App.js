@@ -40,14 +40,14 @@ function App() {
   useEffect(() => {
     const URL = getURLTodos(todoType === 'todo');
     const controller = new AbortController();
+    const signal = controller.signal;
     async function getTodosCallback() {
-      const todoList = await getTodos(
-        URL,
-        todoType === 'todo',
-        controller.signal
-      );
-      console.log(todoList);
-      setTodos(todoList);
+      try {
+        const todoList = await getTodos(URL, todoType === 'todo', signal);
+        setTodos(todoList);
+      } catch (e) {
+        console.log(e);
+      }
     }
     getTodosCallback();
     return () => controller.abort();
