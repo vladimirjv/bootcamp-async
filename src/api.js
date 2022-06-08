@@ -30,11 +30,13 @@ export const createTodo = async (todo) => {
 };
 
 export const updateTodo = async (todo) => {
-  const response = await fetch({
-    url: `https://jsonplaceholder.typicode.com/todos/${todo.id}`,
-    method: 'PUT',
-    body: JSON.stringify({ ...todo }),
-    headers: { 'Content-type': 'application/json; charset=UTF-8' },
-  });
+  const response = await fetch(
+    `https://jsonplaceholder.typicode.com/todos/${todo.id}`,
+    {
+      method: 'PUT',
+      body: JSON.stringify({ ...todo }),
+      headers: { 'Content-type': 'application/json; charset=UTF-8' },
+    }
+  );
   return response;
 };
