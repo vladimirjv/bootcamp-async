@@ -3,8 +3,8 @@ export const getURLTodos = (todoCompleted) => {
     ? 'https://jsonplaceholder.typicode.com/todos?completed=false'
     : 'https://jsonplaceholder.typicode.com/todos?completed=true';
 };
-export const getTodos = async (URL, todoCompleted) => {
-  const json = await fetch(URL).then((response) => response.json());
+export const getTodos = async (URL, todoCompleted, signal) => {
+  const json = await fetch(URL, {signal}).then((response) => response.json());
   return todoCompleted ? json.slice(0, 5) : json.slice(5, 10);
 };
 

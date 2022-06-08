@@ -39,11 +39,18 @@ function App() {
 
   useEffect(() => {
     const URL = getURLTodos(todoType === 'todo');
+    const controller = new AbortController();
     async function getTodosCallback() {
-      const todoList = await getTodos(URL, todoType === 'todo');
+      const todoList = await getTodos(
+        URL,
+        todoType === 'todo',
+        controller.signal
+      );
+      console.log(todoList);
       setTodos(todoList);
     }
     getTodosCallback();
+    return () => controller.abort();
   }, [todoType]);
 
   const onDeleteTodo = async (todo) => {
