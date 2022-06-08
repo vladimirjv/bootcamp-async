@@ -56,24 +56,34 @@ function Todo(props) {
         </span>
       </label>
 
-      <button
-        type="button"
-        className={
-          props.loading ? buttonStyles.greenDisabled : buttonStyles.green
-        }
-        disabled={props.loading}
-        onClick={props.onUpdate.bind(this, { ...props.todo, title, completed })}
-      >
-        {props.loading ? <Loading /> : 'Edit'}
-      </button>
-      <button
-        type="button"
-        className={props.loading ? buttonStyles.redDisabled : buttonStyles.red}
-        onClick={props.onDelete.bind(this, props.todo)}
-        disabled={props.loading}
-      >
-        {props.loading ? <Loading /> : 'Delete'}
-      </button>
+      {props.todo ? (
+        <>
+          <button
+            type="button"
+            className={
+              props.loading ? buttonStyles.greenDisabled : buttonStyles.green
+            }
+            disabled={props.loading}
+            onClick={props.onUpdate.bind(this, {
+              ...props.todo,
+              title,
+              completed,
+            })}
+          >
+            {props.loading ? <Loading /> : 'Edit'}
+          </button>
+          <button
+            type="button"
+            className={
+              props.loading ? buttonStyles.redDisabled : buttonStyles.red
+            }
+            onClick={props.onDelete.bind(this, props.todo)}
+            disabled={props.loading}
+          >
+            {props.loading ? <Loading /> : 'Delete'}
+          </button>
+        </>
+      ) : null}
       <button
         type="button"
         className={
