@@ -83,6 +83,17 @@ function App() {
     const response = await createTodo(todo);
     const body = await response.json();
     console.log(body);
+    console.log(response);
+    setLoading(true);
+    if (response.ok && response.status === 201) {
+      setAlert('Todo Created');
+      setTimeout(() => {
+        setAlert(null);
+        setSelectedTodo(null);
+        setNewTodo(false);
+        setLoading(false);
+      }, 1500);
+    }
   };
 
   return (

@@ -41,7 +41,7 @@ function Todo(props) {
 
       <label
         for="default-toggle"
-        className="mt-2 inline-flex relative items-center cursor-pointer"
+        className="mt-2 mb-2 inline-flex relative items-center cursor-pointer"
       >
         <input
           type="checkbox"
