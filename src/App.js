@@ -15,6 +15,7 @@ import Todo from './components/Todo';
 import Alert from './components/Alert';
 
 function App() {
+  const Controller = new AbortController();
   const [todos, setTodos] = useState([]);
   const [todoType, setTodoType] = useState('todo');
   const [selectedTodo, setSelectedTodo] = useState(null);
@@ -35,6 +36,15 @@ function App() {
     (todo) => setSelectedTodo({ ...todo, completed: todoType !== 'todo' }),
     [selectedTodo]
   );
+
+  useEffect(() => {
+    const URL = getURLTodos(todoType === 'todo');
+    async function getTodosCallback() {
+      const todoList = await getTodos(URL, todoType === 'todo');
+      setTodos(todoList);
+    }
+    getTodosCallback();
+  }, [todoType]);
 
   const onDeleteTodo = async (todo) => {
     setLoading(true);
@@ -68,15 +78,6 @@ function App() {
     console.log(body);
   };
 
-  useEffect(() => {
-    const URL = getURLTodos(todoType === 'todo');
-    async function getTodosCallback() {
-      const todoList = await getTodos(URL, todoType === 'todo');
-      setTodos(todoList);
-    }
-    getTodosCallback();
-  }, [todoType]);
-
   return (
     <div className="App p-2">
       <header className="App-header mb-2">
@@ -101,7 +102,10 @@ function App() {
         <Todo
           todo={selectedTodo}
           onDelete={onDeleteTodo}
-          onCancel={() => setSelectedTodo(null)}
+          onCancel={() => {
+            setSelectedTodo(null);
+            setNewTodo(false);
+          }}
           onCreate={onCreateTodo}
           onUpdate={onUpdateTodo}
           loading={loading}
