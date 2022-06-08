@@ -61,6 +61,7 @@ function Todo(props) {
           props.loading ? buttonStyles.greenDisabled : buttonStyles.green
         }
         disabled={props.loading}
+        onClick={props.onUpdate.bind(this, { ...props.todo, title, completed })}
       >
         {/* eslint-enable */}
         {props.loading ? <Loading /> : 'Edit'}

@@ -1,6 +1,12 @@
 import React from 'react';
 import { useEffect, useState, useCallback } from 'react';
-import { getURLTodos, getTodos, deleteTodo } from './api';
+import {
+  getURLTodos,
+  getTodos,
+  deleteTodo,
+  createTodo,
+  updateTodo,
+} from './api';
 import { tabs } from './config';
 import './App.css';
 import TodoCard from './components/TodoCard';
@@ -41,6 +47,25 @@ function App() {
     }
   };
 
+  const onUpdateTodo = async (todo) => {
+    setLoading(true);
+    const { ok, status } = await updateTodo(todo);
+    if (ok && status === 200) {
+      setAlert('Updated');
+      setTimeout(() => {
+        setAlert(null);
+        setSelectedTodo(null);
+        setLoading(false);
+      }, 1500);
+    }
+  };
+
+  const onCreateTodo = async (todo) => {
+    // setLoading(true);
+    const response = await updateTodo(todo);
+    console.log(response);
+  };
+
   useEffect(() => {
     const URL = getURLTodos(todoType === 'todo');
     async function getTodosCallback() {
@@ -65,6 +90,8 @@ function App() {
           todo={selectedTodo}
           onDelete={onDeleteTodo}
           onCancel={() => setSelectedTodo(null)}
+          onCreate={onCreateTodo}
+          onUpdate={onUpdateTodo}
           loading={loading}
         />
       ) : null}
