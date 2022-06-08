@@ -86,6 +86,14 @@ function App() {
 
       <TodoTabs selectedTab={todoType} onChangeTab={onChangeTab} tabs={tabs} />
 
+      <button
+        type="button"
+        className=""
+        onClick={setNewTodo.bind(this, true)}
+      >
+        New Todo
+      </button>
+
       {selectedTodo ? (
         <Todo
           todo={selectedTodo}
