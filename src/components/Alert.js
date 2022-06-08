@@ -4,7 +4,7 @@ function Alert(props) {
   const [visible, setVisible] = useState(!!props.alert);
 
   useEffect(() => {
-    setVisible(!!prop.alert);
+    setVisible(!!props.alert);
   }, [props.alert]);
 
   return visible ? (

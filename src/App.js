@@ -6,11 +6,13 @@ import './App.css';
 import TodoCard from './components/TodoCard';
 import TodoTabs from './components/TodoTabs';
 import Todo from './components/Todo';
+import Alert from './components/Alert';
 
 function App() {
   const [todos, setTodos] = useState([]);
   const [todoType, setTodoType] = useState('todo');
   const [selectedTodo, setSelectedTodo] = useState(null);
+  const [alert, setAlert] = useState(null);
 
   const onChangeTab = useCallback(
     (tab) => {
@@ -24,8 +26,6 @@ function App() {
     (todo) => setSelectedTodo({ ...todo, completed: todoType !== 'todo' }),
     [selectedTodo]
   );
-
-  
 
   useEffect(() => {
     const URL = getURLTodos(todoType === 'todo');
@@ -41,6 +41,8 @@ function App() {
       <header className="App-header mb-2">
         <p className="text-4xl text-cyan-500">TODO APP</p>
       </header>
+
+      <Alert alert={alert}/>
 
       <TodoTabs selectedTab={todoType} onChangeTab={onChangeTab} tabs={tabs} />
 
