@@ -20,6 +20,7 @@ function App() {
   const [selectedTodo, setSelectedTodo] = useState(null);
   const [alert, setAlert] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [newTodo, setNewTodo] = useState(false);
 
   const onChangeTab = useCallback(
     (tab) => {
