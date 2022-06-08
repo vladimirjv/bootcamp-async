@@ -24,6 +24,7 @@ export const createTodo = async (todo) => {
       'Content-type': 'application/json; charset=UTF-8',
     },
   });
+  return response;
 };
 
 export const updateTodo = async (todo) => {
