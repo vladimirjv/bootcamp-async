@@ -25,6 +25,8 @@ function App() {
     [selectedTodo]
   );
 
+  
+
   useEffect(() => {
     const URL = getURLTodos(todoType === 'todo');
     async function getTodosCallback() {
