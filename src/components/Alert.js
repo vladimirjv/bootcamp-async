@@ -4,12 +4,8 @@ function Alert(props) {
   const [visible, setVisible] = useState(!!props.alert);
 
   useEffect(() => {
-    if (visible) {
-      setTimeout(() => {
-        setVisible(false);
-      }, 1000);
-    }
-  }, []);
+    setVisible(!!prop.alert);
+  }, [props.alert]);
 
   return visible ? (
     <div
