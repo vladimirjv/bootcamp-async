@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect, useState, useCallback } from 'react';
-import { getURLTodos, getTodos } from './api';
+import { getURLTodos, getTodos, deleteTodo } from './api';
 import { tabs } from './config';
 import './App.css';
 import TodoCard from './components/TodoCard';
@@ -26,6 +26,11 @@ function App() {
     (todo) => setSelectedTodo({ ...todo, completed: todoType !== 'todo' }),
     [selectedTodo]
   );
+
+  const onDeleteTodo = async (todo) => {
+    const {ok, status} = await deleteTodo(todo.id);
+    console.log(ok, status)
+  }
 
   useEffect(() => {
     const URL = getURLTodos(todoType === 'todo');
@@ -55,6 +60,7 @@ function App() {
               todo={todo}
               title={todo.title}
               onEditTodo={onSelectTodo}
+              onDelete={onDeleteTodo}
             ></TodoCard>
           ))
         : null}
