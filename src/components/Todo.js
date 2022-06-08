@@ -83,7 +83,23 @@ function Todo(props) {
             {props.loading ? <Loading /> : 'Delete'}
           </button>
         </>
-      ) : null}
+      ) : (
+        <button
+          type="button"
+          className={
+            props.loading ? buttonStyles.greenDisabled : buttonStyles.green
+          }
+          disabled={props.loading}
+          onClick={props.onCreate.bind(this, {
+            id: 101, // Hardcoded
+            userId: 1, // Hardcoded
+            title,
+            completed,
+          })}
+        >
+          {props.loading ? <Loading /> : 'Create'}
+        </button>
+      )}
       <button
         type="button"
         className={
