@@ -28,9 +28,13 @@ function App() {
   );
 
   const onDeleteTodo = async (todo) => {
-    const {ok, status} = await deleteTodo(todo.id);
-    console.log(ok, status)
-  }
+    const { ok, status } = await deleteTodo(todo.id);
+    if (ok && status === 200) {
+      console.log(ok, status);
+      setAlert('Deleted');
+      setTimeout(setAlert.bind(this, null), 1000);
+    }
+  };
 
   useEffect(() => {
     const URL = getURLTodos(todoType === 'todo');
@@ -47,7 +51,7 @@ function App() {
         <p className="text-4xl text-cyan-500">TODO APP</p>
       </header>
 
-      <Alert alert={alert}/>
+      <Alert alert={alert} />
 
       <TodoTabs selectedTab={todoType} onChangeTab={onChangeTab} tabs={tabs} />
 
