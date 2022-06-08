@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { getTodoById } from '../api';
+import Loading from './Loading';
+const buttonStyles = {
+  green:
+    'w-full focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800',
+  red: 'w-full focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900',
+  aleternative:
+    'w-full  py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700',
+  greenDisabled:
+    'w-full text-white bg-green-800 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-700',
+};
 
 function Todo(props) {
   const [title, setTitle] = useState(props.todo.title);
@@ -42,17 +51,23 @@ function Todo(props) {
       </label>
 
       {/* eslint-disable */}
-      <button
-        type="button"
-        className="w-full mt-2 text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
-      >
+      <button type="button" className={buttonStyles.green}>
         {/* eslint-enable */}
         Edit
+      </button>
+      <button
+        type="button"
+        className={buttonStyles.red}
+        onClick={props.onDelete.bind(this, props.todo)}
+      >
+        {/* eslint-enable */}
+        {props.loading ? <Loading /> : 'Delete'}
       </button>
       {/* eslint-disable */}
       <button
         type="button"
-        className="w-full focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+        className={buttonStyles.aleternative}
+        onClick={props.onCancel.bind(this)}
       >
         {/* eslint-enable */}
         Cancel

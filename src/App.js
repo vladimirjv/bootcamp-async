@@ -13,6 +13,7 @@ function App() {
   const [todoType, setTodoType] = useState('todo');
   const [selectedTodo, setSelectedTodo] = useState(null);
   const [alert, setAlert] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const onChangeTab = useCallback(
     (tab) => {
@@ -28,10 +29,13 @@ function App() {
   );
 
   const onDeleteTodo = async (todo) => {
+    setLoading(true);
     const { ok, status } = await deleteTodo(todo.id);
     if (ok && status === 200) {
       setAlert('Deleted');
       setTimeout(setAlert.bind(this, null), 3000);
+      setSelectedTodo(null);
+      setLoading(false);
     }
   };
 
@@ -54,7 +58,14 @@ function App() {
 
       <TodoTabs selectedTab={todoType} onChangeTab={onChangeTab} tabs={tabs} />
 
-      {selectedTodo ? <Todo todo={selectedTodo} /> : null}
+      {selectedTodo ? (
+        <Todo
+          todo={selectedTodo}
+          onDelete={onDeleteTodo}
+          onCancel={() => setSelectedTodo(null)}
+          loading={loading}
+        />
+      ) : null}
 
       {!selectedTodo
         ? todos.map((todo) => (
@@ -63,7 +74,6 @@ function App() {
               todo={todo}
               title={todo.title}
               onEditTodo={onSelectTodo}
-              onDelete={onDeleteTodo}
             ></TodoCard>
           ))
         : null}
