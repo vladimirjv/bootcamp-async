@@ -15,7 +15,6 @@ import Todo from './components/Todo';
 import Alert from './components/Alert';
 
 function App() {
-  const Controller = new AbortController();
   const [todos, setTodos] = useState([]);
   const [todoType, setTodoType] = useState('todo');
   const [selectedTodo, setSelectedTodo] = useState(null);
@@ -82,8 +81,6 @@ function App() {
   const onCreateTodo = async (todo) => {
     const response = await createTodo(todo);
     const body = await response.json();
-    console.log(body);
-    console.log(response);
     setLoading(true);
     if (response.ok && response.status === 201) {
       setAlert('Todo Created');

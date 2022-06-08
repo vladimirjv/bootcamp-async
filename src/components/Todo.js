@@ -39,10 +39,7 @@ function Todo(props) {
         ></textarea>
       </div>
 
-      <label
-        for="default-toggle"
-        className="mt-2 mb-2 inline-flex relative items-center cursor-pointer"
-      >
+      <label className="mt-2 mb-2 inline-flex relative items-center cursor-pointer">
         <input
           type="checkbox"
           id="default-toggle"
