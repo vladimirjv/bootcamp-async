@@ -11,7 +11,27 @@ export const getTodos = async (URL, todoCompleted) => {
 export const deleteTodo = async (todoId) => {
   const response = await fetch({
     method: 'delete',
-    url: `https://jsonplaceholder.typicode.com/todos/${todoId}`
-  })
+    url: `https://jsonplaceholder.typicode.com/todos/${todoId}`,
+  });
   return response;
-}
+};
+
+export const createTodo = async (todo) => {
+  const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
+    method: 'POST',
+    body: JSON.stringify({ ...todo }),
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+    },
+  });
+};
+
+export const updateTodo = async (todo) => {
+  const response = await fetch({
+    url: `https://jsonplaceholder.typicode.com/todos/${todo.id}`,
+    method: 'PUT',
+    body: JSON.stringify({ ...todo }),
+    headers: { 'Content-type': 'application/json; charset=UTF-8' },
+  });
+  return response;
+};
