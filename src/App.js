@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect, useState, useCallback } from 'react';
-import { getTodos } from './api';
+import { getTodos, createTodo } from './api';
 import './App.css';
 import TodoCard from './components/TodoCard';
 import Todo from './components/Todo';
@@ -29,7 +29,19 @@ function App() {
   }, []);
 
   const onCreateTodo = async (todo) => {
-    console.log(todo);
+    try {
+      setLoading(true);
+      const body = await createTodo(todo);
+      setAlert('Todo Created');
+      console.log(body);
+      setTimeout(() => {
+        setLoading(false);
+        setAlert(null);
+        setNewTodo(false);
+      }, 1200);
+    } catch (e) {
+      setLoading(false);
+    }
   };
 
   return (
