@@ -1,96 +1,35 @@
 import React from 'react';
 import { useEffect, useState, useCallback } from 'react';
-import {
-  getURLTodos,
-  getTodos,
-  deleteTodo,
-  createTodo,
-  updateTodo,
-} from './api';
-import { tabs } from './config';
+import { getTodos } from './api';
 import './App.css';
 import TodoCard from './components/TodoCard';
-import TodoTabs from './components/TodoTabs';
 import Todo from './components/Todo';
 import Alert from './components/Alert';
 
 function App() {
   const [todos, setTodos] = useState([]);
-  const [todoType, setTodoType] = useState('todo');
-  const [selectedTodo, setSelectedTodo] = useState(null);
   const [alert, setAlert] = useState(null);
   const [loading, setLoading] = useState(false);
   const [newTodo, setNewTodo] = useState(false);
 
-  const onChangeTab = useCallback(
-    (tab) => {
-      setSelectedTodo(null);
-      setNewTodo(false);
-      setTodoType(tab.key);
-    },
-    [todoType]
-  );
-
-  const onSelectTodo = useCallback(
-    (todo) => setSelectedTodo({ ...todo, completed: todoType !== 'todo' }),
-    [selectedTodo]
-  );
-
   useEffect(() => {
-    const URL = getURLTodos(todoType === 'todo');
-    const controller = new AbortController();
-    const signal = controller.signal;
-    async function getTodosCallback() {
+    async function getInfo() {
+      setLoading(true);
       try {
-        const todoList = await getTodos(URL, todoType === 'todo', signal);
+        const todoList = await getTodos();
         setTodos(todoList);
+        setLoading(false);
       } catch (e) {
-        console.log(e);
+        setLoading(false);
       }
     }
-    getTodosCallback();
-    return () => controller.abort();
-  }, [todoType]);
-
-  const onDeleteTodo = async (todo) => {
-    setLoading(true);
-    const { ok, status } = await deleteTodo(todo.id);
-    if (ok && status === 200) {
-      setAlert('Deleted');
-      setTimeout(() => {
-        setAlert(null);
-        setSelectedTodo(null);
-        setLoading(false);
-      }, 3000);
-    }
-  };
-
-  const onUpdateTodo = async (todo) => {
-    setLoading(true);
-    const { ok, status } = await updateTodo(todo);
-    if (ok && status === 200) {
-      setAlert('Updated');
-      setTimeout(() => {
-        setAlert(null);
-        setSelectedTodo(null);
-        setLoading(false);
-      }, 1500);
-    }
-  };
+    getInfo();
+    setAlert('TODOS Obtained');
+    setTimeout(() => setAlert(null), 2000);
+  }, []);
 
   const onCreateTodo = async (todo) => {
-    const response = await createTodo(todo);
-    const body = await response.json();
-    setLoading(true);
-    if (response.ok && response.status === 201) {
-      setAlert('Todo Created');
-      setTimeout(() => {
-        setAlert(null);
-        setSelectedTodo(null);
-        setNewTodo(false);
-        setLoading(false);
-      }, 1500);
-    }
+    console.log(todo);
   };
 
   return (
@@ -101,9 +40,7 @@ function App() {
 
       <Alert alert={alert} />
 
-      <TodoTabs selectedTab={todoType} onChangeTab={onChangeTab} tabs={tabs} />
-
-      {!newTodo && !selectedTodo ? (
+      {!newTodo ? (
         <button
           type="button"
           className="w-96 focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
@@ -113,27 +50,23 @@ function App() {
         </button>
       ) : null}
 
-      {selectedTodo || newTodo ? (
+      {newTodo ? (
         <Todo
-          todo={selectedTodo}
-          onDelete={onDeleteTodo}
+          onCreate={onCreateTodo}
           onCancel={() => {
-            setSelectedTodo(null);
             setNewTodo(false);
           }}
-          onCreate={onCreateTodo}
-          onUpdate={onUpdateTodo}
           loading={loading}
         />
       ) : null}
 
-      {!newTodo && !selectedTodo
+      {!newTodo
         ? todos.map((todo) => (
             <TodoCard
               key={todo.id}
               todo={todo}
               title={todo.title}
-              onEditTodo={onSelectTodo}
+              onSeeTodo={() => {}}
             ></TodoCard>
           ))
         : null}

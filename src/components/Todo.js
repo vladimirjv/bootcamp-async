@@ -15,18 +15,13 @@ const buttonStyles = {
 };
 
 function Todo(props) {
-  const [title, setTitle] = useState(props.todo ? props.todo.title : '');
-  const [completed, setCompleted] = useState(
-    props.todo ? props.todo.completed : ''
-  );
+  const [title, setTitle] = useState('');
+  const [completed, setCompleted] = useState('');
 
   return (
     <div className="w-full cursor-pointer my-2 p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
       <div className="mt-2">
-        <label
-          for="message"
-          className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-        >
+        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
           Title
         </label>
         <textarea
@@ -54,50 +49,22 @@ function Todo(props) {
         </span>
       </label>
 
-      {props.todo ? (
-        <>
-          <button
-            type="button"
-            className={
-              props.loading ? buttonStyles.greenDisabled : buttonStyles.green
-            }
-            disabled={props.loading}
-            onClick={props.onUpdate.bind(this, {
-              ...props.todo,
-              title,
-              completed,
-            })}
-          >
-            {props.loading ? <Loading /> : 'Edit'}
-          </button>
-          <button
-            type="button"
-            className={
-              props.loading ? buttonStyles.redDisabled : buttonStyles.red
-            }
-            onClick={props.onDelete.bind(this, props.todo)}
-            disabled={props.loading}
-          >
-            {props.loading ? <Loading /> : 'Delete'}
-          </button>
-        </>
-      ) : (
-        <button
-          type="button"
-          className={
-            props.loading ? buttonStyles.greenDisabled : buttonStyles.green
-          }
-          disabled={props.loading}
-          onClick={props.onCreate.bind(this, {
-            id: 101, // Hardcoded
-            userId: 1, // Hardcoded
-            title,
-            completed,
-          })}
-        >
-          {props.loading ? <Loading /> : 'Create'}
-        </button>
-      )}
+      <button
+        type="button"
+        className={
+          props.loading ? buttonStyles.greenDisabled : buttonStyles.green
+        }
+        disabled={props.loading}
+        onClick={props.onCreate.bind(this, {
+          id: 101, // Hardcoded
+          userId: 1, // Hardcoded
+          title,
+          completed,
+        })}
+      >
+        {props.loading ? <Loading /> : 'Create'}
+      </button>
+
       <button
         type="button"
         className={
