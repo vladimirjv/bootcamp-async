@@ -25,7 +25,7 @@ function App() {
     }
     getInfo();
     setAlert('TODOS Obtained');
-    setTimeout(() => setAlert(null), 2000);
+    setTimeout(() => setAlert(null), 1000);
   }, []);
 
   const onCreateTodo = async (todo) => {
