@@ -53,7 +53,6 @@ function Todo(props) {
         }
         disabled={props.loading}
         onClick={props.onCreate.bind(this, {
-          id: 101, // Hardcoded
           userId: 1, // Hardcoded
           title,
           completed,

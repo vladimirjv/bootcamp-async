@@ -1,5 +1,5 @@
 import React from 'react';
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import { getTodos, createTodo } from './api';
 import './App.css';
 import TodoCard from './components/TodoCard';
@@ -24,24 +24,17 @@ function App() {
       }
     }
     getInfo();
+    // Showing the alert
     setAlert('TODOS Obtained');
+    // Clearing the alert after 1s
     setTimeout(() => setAlert(null), 1000);
   }, []);
 
+  // Excercise 2: Generate a new todo, by calling the createTodo method, who trigger a HTTP POST Call
+  // also, change the status of loading flag when initialize the request, when the request it's over,
+  // display an alert,and wait a moment, then clear the alert, the loading flag and go back to the list of todos
   const onCreateTodo = async (todo) => {
-    try {
-      setLoading(true);
-      const body = await createTodo(todo);
-      setAlert('Todo Created');
-      console.log(body);
-      setTimeout(() => {
-        setLoading(false);
-        setAlert(null);
-        setNewTodo(false);
-      }, 1200);
-    } catch (e) {
-      setLoading(false);
-    }
+    console.log(todo);
   };
 
   return (
