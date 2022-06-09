@@ -1,5 +1,5 @@
 import React from 'react';
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import { getTodos } from './api';
 import './App.css';
 import TodoCard from './components/TodoCard';
