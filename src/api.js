@@ -9,10 +9,10 @@ export const getURLTodos = (todoCompleted) => {
     todoCompleted
   )}`;
 };
+
+// Call the api to get the todos, filtering by completed flag.
 export const getTodosByType = async (todoCompleted, signal = null) => {
   const URL = getURLTodos(todoCompleted);
-  const json = await fetch(URL, { signal }).then((response) => response.json());
-  return json.slice(0, 5);
 };
 
 export const createTodo = async (todo) => {
