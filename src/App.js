@@ -51,30 +51,20 @@ function App() {
     }
   };
 
+  /* TODO: Generate a function that update the selected TODO card, a loading
+  status should be set at the beginning of the request and set to false when
+  receiving a response, if the answer is correct, display a small notification
+  and then hold for a moment to finally clear the alert and loading status. */
   const onUpdateTodo = async (todo) => {
-    setLoading(true);
-    const { ok, status } = await updateTodo(todo);
-    if (ok && status === 200) {
-      setAlert('Updated');
-      setTimeout(() => {
-        setAlert(null);
-        setSelectedTodo(null);
-        setLoading(false);
-      }, 1500);
-    }
+    console.log(todo);
   };
-
+  
+  /* TODO: Generate a function that delete the selected TODO card, a loading
+  status should be set at the beginning of the request and set to false when
+  receiving a response, if the answer is correct, display a small notification
+  and then hold for a moment to finally clear the alert and loading status. */
   const onDeleteTodo = async (todo) => {
-    setLoading(true);
-    const { ok, status } = await deleteTodo(todo.id);
-    if (ok && status === 200) {
-      setAlert('Deleted');
-      setTimeout(() => {
-        setAlert(null);
-        setSelectedTodo(null);
-        setLoading(false);
-      }, 3000);
-    }
+    console.log(todo);
   };
 
   return (
