@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect, useState, useCallback } from 'react';
-import { getTodos, createTodo, deleteTodo, updateTodo } from './api';
+import { getTodosByType, createTodo, deleteTodo, updateTodo } from './api';
 import './App.css';
 import { tabs } from './config';
 import TodoCard from './components/TodoCard';
@@ -25,27 +25,26 @@ function App() {
     [todoType]
   );
 
-  useEffect(() => {
-    async function getInfo() {
-      setLoading(true);
-      try {
-        const todoList = await getTodos();
-        setTodos(todoList);
-        setLoading(false);
-      } catch (e) {
-        setLoading(false);
-      }
-    }
-    getInfo();
-    setAlert('TODOS Obtained');
-    setTimeout(() => setAlert(null), 1000);
-  }, []);
-
   // Select the todo card
   const onSelectTodo = useCallback(
     (todo) => setSelectedTodo({ ...todo }),
     [selectedTodo]
   );
+
+  useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+    async function getTodosCallback() {
+      try {
+        const todoList = await getTodosByType(todoType === 'todo', signal);
+        setTodos(todoList);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    getTodosCallback();
+    return () => controller.abort();
+  }, [todoType]);
 
   const onCreateTodo = async (todo) => {
     try {
