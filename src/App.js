@@ -43,23 +43,7 @@ function App() {
    * request on every clean up of the react hook, preventing performance issues on
    * changing tabs.
    */
-  useEffect(() => {
-    /*const controller = new AbortController();
-    const signal = controller.signal;
-    async function getTodosCallback() {
-      setLoading(true);
-      try {
-        const todoList = await getTodosByType(todoType === 'todo', signal);
-        setLoading(false);
-        setTodos(todoList);
-      } catch (e) {
-        console.log(e);
-        setLoading(false);
-      }
-    }
-    getTodosCallback();
-    return () => controller.abort(); */
-  }, [todoType]);
+  useEffect(() => {}, [todoType]);
 
   const onCreateTodo = async (todo) => {
     try {
