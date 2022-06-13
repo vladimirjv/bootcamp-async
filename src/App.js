@@ -2,16 +2,28 @@ import React from 'react';
 import { useEffect, useState, useCallback } from 'react';
 import { getTodos, createTodo, deleteTodo, updateTodo } from './api';
 import './App.css';
+import { tabs } from './config';
 import TodoCard from './components/TodoCard';
 import Todo from './components/Todo';
 import Alert from './components/Alert';
+import TodoTabs from './components/TodoTabs';
 
 function App() {
   const [todos, setTodos] = useState([]);
+  const [todoType, setTodoType] = useState('todo');
   const [alert, setAlert] = useState(null);
   const [selectedTodo, setSelectedTodo] = useState(null);
   const [loading, setLoading] = useState(false);
   const [newTodo, setNewTodo] = useState(false);
+
+  const onChangeTab = useCallback(
+    (tab) => {
+      setSelectedTodo(null);
+      setNewTodo(false);
+      setTodoType(tab.key);
+    },
+    [todoType]
+  );
 
   useEffect(() => {
     async function getInfo() {
@@ -84,6 +96,8 @@ function App() {
       </header>
 
       <Alert alert={alert} />
+
+      <TodoTabs selectedTab={todoType} onChangeTab={onChangeTab} tabs={tabs} />
 
       {!newTodo && !selectedTodo ? (
         <button
