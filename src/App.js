@@ -35,7 +35,6 @@ function App() {
   useEffect(() => {
     const controller = new AbortController();
     const signal = controller.signal;
-    setLoading(true);
     async function getTodosCallback() {
       setLoading(true);
       try {
