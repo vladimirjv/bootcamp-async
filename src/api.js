@@ -4,6 +4,17 @@ export const getTodos = async () => {
   return body.slice(0, 5);
 };
 
+export const getURLTodos = (todoCompleted) => {
+  return todoCompleted
+    ? 'https://jsonplaceholder.typicode.com/todos?completed=false'
+    : 'https://jsonplaceholder.typicode.com/todos?completed=true';
+};
+export const getTodosByType = async (todoCompleted, signal = null) => {
+  const URL = getURLTodos(todoCompleted);
+  const json = await fetch(URL, { signal }).then((response) => response.json());
+  return json.slice(0, 5);
+};
+
 export const createTodo = async (todo) => {
   const response = await fetch('https://jsonplaceholder.typicode.com/todos', {
     method: 'POST',
