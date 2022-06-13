@@ -7,6 +7,7 @@ import TodoCard from './components/TodoCard';
 import Todo from './components/Todo';
 import Alert from './components/Alert';
 import TodoTabs from './components/TodoTabs';
+import Loading from './components/Loading';
 
 function App() {
   const [todos, setTodos] = useState([]);
@@ -35,11 +36,14 @@ function App() {
     const controller = new AbortController();
     const signal = controller.signal;
     async function getTodosCallback() {
+      setLoading(true);
       try {
         const todoList = await getTodosByType(todoType === 'todo', signal);
+        setLoading(false);
         setTodos(todoList);
       } catch (e) {
         console.log(e);
+        setLoading(false);
       }
     }
     getTodosCallback();
@@ -122,8 +126,9 @@ function App() {
         />
       ) : null}
 
-      {!newTodo && !selectedTodo
-        ? todos.map((todo) => (
+      {!newTodo && !selectedTodo ? (
+        !loading ? (
+          todos.map((todo) => (
             <TodoCard
               key={todo.id}
               todo={todo}
@@ -131,7 +136,10 @@ function App() {
               onSeeTodo={onSelectTodo}
             ></TodoCard>
           ))
-        : null}
+        ) : (
+          <Loading />
+        )
+      ) : null}
     </div>
   );
 }
