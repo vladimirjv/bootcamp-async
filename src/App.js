@@ -137,7 +137,7 @@ function App() {
             ></TodoCard>
           ))
         ) : (
-          <Loading />
+          <Loading className="text-white" />
         )
       ) : null}
     </div>
