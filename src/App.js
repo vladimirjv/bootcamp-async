@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect, useState, useCallback } from 'react';
-import { getTodos, createTodo } from './api';
+import { getTodos, createTodo, deleteTodo, updateTodo } from './api';
 import './App.css';
 import TodoCard from './components/TodoCard';
 import Todo from './components/Todo';
@@ -51,19 +51,6 @@ function App() {
     }
   };
 
-  const onDeleteTodo = async (todo) => {
-    setLoading(true);
-    const { ok, status } = await deleteTodo(todo.id);
-    if (ok && status === 200) {
-      setAlert('Deleted');
-      setTimeout(() => {
-        setAlert(null);
-        setSelectedTodo(null);
-        setLoading(false);
-      }, 3000);
-    }
-  };
-
   const onUpdateTodo = async (todo) => {
     setLoading(true);
     const { ok, status } = await updateTodo(todo);
@@ -74,6 +61,19 @@ function App() {
         setSelectedTodo(null);
         setLoading(false);
       }, 1500);
+    }
+  };
+
+  const onDeleteTodo = async (todo) => {
+    setLoading(true);
+    const { ok, status } = await deleteTodo(todo.id);
+    if (ok && status === 200) {
+      setAlert('Deleted');
+      setTimeout(() => {
+        setAlert(null);
+        setSelectedTodo(null);
+        setLoading(false);
+      }, 3000);
     }
   };
 
