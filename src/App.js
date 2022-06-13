@@ -32,8 +32,19 @@ function App() {
     [selectedTodo]
   );
 
+  /**
+   * TODO: create a hook that trigger a call to the api from getTodosByType function
+   * every time that the selectedTab change, the getTodosByType call a filtered request
+   * depending if the todos are completed or not. When waiting to get the todos show the
+   * loading animation, when receiving the the todos set them to the state and hide loading
+   * animation.
+   *
+   * After calling and setting the state with todos, create an AbortController to cancel
+   * request on every clean up of the react hook, preventing performance issues on
+   * changing tabs.
+   */
   useEffect(() => {
-    const controller = new AbortController();
+    /*const controller = new AbortController();
     const signal = controller.signal;
     async function getTodosCallback() {
       setLoading(true);
@@ -47,7 +58,7 @@ function App() {
       }
     }
     getTodosCallback();
-    return () => controller.abort();
+    return () => controller.abort(); */
   }, [todoType]);
 
   const onCreateTodo = async (todo) => {
