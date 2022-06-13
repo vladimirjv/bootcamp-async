@@ -5,9 +5,9 @@ export const getTodos = async () => {
 };
 
 export const getURLTodos = (todoCompleted) => {
-  return todoCompleted
-    ? 'https://jsonplaceholder.typicode.com/todos?completed=false'
-    : 'https://jsonplaceholder.typicode.com/todos?completed=true';
+  return `https://jsonplaceholder.typicode.com/todos?completed=${String(
+    todoCompleted
+  )}`;
 };
 export const getTodosByType = async (todoCompleted, signal = null) => {
   const URL = getURLTodos(todoCompleted);
